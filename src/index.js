@@ -1,3 +1,6 @@
-const wangshuang ='sss'
+import './index.css'
+const wangshuang ='sss1'
 console.log({wangshuang})
-console.log({wangshuan})
+const img  = document.createElement('div');
+img.classList.add('body')
+document.body.appendChild(img)
