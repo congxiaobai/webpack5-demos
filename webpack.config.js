@@ -9,19 +9,40 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     clean: true,
   },
-
-  module: {
-    rules: [{
-      test: /\.png$/,
-      type: 'asset/resource',
-      generator:{
-        filename:'./images/[contenthash][ext]'
-      }
+  devServer:{
+    hot:true
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
     },
-    {
-      test: /\.css$/,
-      use:['style-loader','css-loader']
-    }],
+    extensions: ['.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.png$/,
+        type: 'asset/resource',
+        generator: {
+          filename: './images/[contenthash][ext]',
+        },
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime'],
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [new htmlWebpackPlugin()],
 };
